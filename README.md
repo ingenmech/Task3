@@ -31,3 +31,93 @@
         </VideoCard>
     </Boards>
 </AbstarctComputerParts>
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<schema>
+    <element name="Devices">
+        <complexType>
+            <all>
+                <elemnet name="motherBoard" type="tns:MotherBoard"
+                         minOccurs="2"
+                         maxOccurs="unbonded"/>
+                <elemnet name="videoCard" type="tns:VideoCard"
+                         minOccurs="2"
+                         maxOccurs="unbonded"/>
+            </all>
+        </complexType>
+    </element>
+
+    <complexType name="AbstractComputerParts">
+        <atribute name="id" type="int" use="required"/>
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="manufacturer" type="string"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Board">
+        <complexContent>
+            <extension base="tns:AbstractComputerParts">
+                <sequence>
+                    <element name="type">
+                        <siplyTipe>
+                            <restriction base="string">
+                                <enumaration value="GAMING"></enumaration>
+                                <enumaration value="PROFESSIONAL"></enumaration>
+                            </restriction>
+                        </siplyTipe>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="MotherBoard">
+        <complexContent>
+            <extension base="tns:Board">
+                <sequence>
+                    <element name="configuration">
+                        <siplyTipe>
+                            <restriction base="string">
+                                <enumaration value="EATX"></enumaration>
+                                <enumaration value="MATX"></enumaration>
+                                <enumaration value="ATX"></enumaration>
+                            </restriction>
+                        </siplyTipe>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="VideoCard">
+        <complexContent>
+            <extension base="tns:Board">
+                <sequence>
+                    <element name="memoryRAM" type="string"/>
+                    <element name="processor" type="tns:Processor"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="Processor">
+        <complexContent>
+            <extension base="tns:AbstractComputerParts">
+                <sequence>
+                    <element name="frequencyCore" type="string"/>
+                    <element name="processorType">
+                        <simplyTipe>
+                            <restriction base="string">
+                                <enumaration value="VGA"></enumaration>
+                                <enumaration value="CPU"></enumaration>
+                            </restriction>
+                        </simplyTipe>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+</schema>
