@@ -1,36 +1,71 @@
-# Task3
-
 <?xml version="1.0" encoding="UTF-8"?>
-<AbstarctComputerParts>
-    <Boards>
-        <MotherBoard id="1">
-            <name>MB_A1</name>
-            <manufacturer>Asus</manufacturer>
-            <size>mini</size>
-            <connectionInterfaces></connectionInterfaces>
-            <Processor id="3">
-                <name>F8300</name>
-                <manufacturer>Intel</manufacturer>
-                <frequencyCore>2100</frequencyCore>
-                <processorType>CPU</processorType>
-                <coresNumber>4</coresNumber>
-            </Processor>
-        </MotherBoard>
-        <VideoCard id="2">
-            <name>MB_A1</name>
-            <manufacturer>Asus</manufacturer>
-            <size>standart</size>
-            <memoryRAM>4</memoryRAM>
-            <Processor id="4">
-                <name>P23</name>
-                <manufacturer>Nvidia</manufacturer>
-                <frequencyCore>800</frequencyCore>
-                <processorType>VIDEO</processorType>
-                <coresNumber>9</coresNumber>
-            </Processor>
-        </VideoCard>
-    </Boards>
-</AbstarctComputerParts>
+<Devices>
+    <motherBoard id="1" name="MB_A1">
+        <manufacturer>Asus</manufacturer>
+        <type>PROFESSIONAL</type>
+        <connfiguration>ATX</connfiguration>
+        <Processor id="2">
+            <name>F8300</name>
+            <manufacturer>Intel</manufacturer>
+            <frequencyCore>2100</frequencyCore>
+            <coresNumber>4</coresNumber>
+            <processorType>CPU</processorType>
+        </Processor>
+    </motherBoard>
+    <videoCard id="3" name="MB_A1">
+        <manufacturer>Asus</manufacturer>
+        <type>GAMING</type>
+        <memoryRAM>4</memoryRAM>
+        <Processor id="4">
+            <name>F04</name>
+            <manufacturer>NVIDIA</manufacturer>
+            <frequencyCore>2100</frequencyCore>
+            <coresNumber>4</coresNumber>
+            <processorType>GPU</processorType>
+        </Processor>
+    </videoCard>
+    <motherBoard id="5" name="ZEN_A1">
+        <manufacturer>GIGABYTE</manufacturer>
+        <type>GAMING</type>
+        <connfiguration>MATX</connfiguration>
+        <Processor id="6">
+            <name>K5400</name>
+            <manufacturer>Intel</manufacturer>
+            <frequencyCore>2100</frequencyCore>
+            <coresNumber>4</coresNumber>
+            <processorType>CPU</processorType>
+        </Processor>
+    </motherBoard>
+    <videoCard id="7" name="VEGA">
+        <manufacturer>AMD</manufacturer>
+        <type>PROFESSIONAL</type>
+        <memoryRAM>16</memoryRAM>
+        <Processor id="8">
+            <name>F04</name>
+            <manufacturer>AMD</manufacturer>
+            <frequencyCore>2100</frequencyCore>
+            <coresNumber>4</coresNumber>
+            <processorType>GPU</processorType>
+        </Processor>
+    </videoCard>
+    <processor id="5" name="FX8300">
+        <manufacturer>AMD</manufacturer>
+        <frequencyCore>2100</frequencyCore>
+        <coresNumber>4</coresNumber>
+        <processorType>CPU</processorType>
+    </processor>
+    <processor id="2" name="Ryzen3500">
+        <manufacturer>AMD</manufacturer>
+        <frequencyCore>2100</frequencyCore>
+        <coresNumber>8</coresNumber>
+        <processorType>CPU</processorType>
+    </processor>
+</Devices>
+
+
+
+
+
 
 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -44,18 +79,39 @@
                 <elemnet name="videoCard" type="tns:VideoCard"
                          minOccurs="2"
                          maxOccurs="unbonded"/>
+                <elemnet name="processor" type="tns:Processor"
+                         minOccurs="2"
+                         maxOccurs="unbonded"/>
             </all>
         </complexType>
     </element>
-
     <complexType name="AbstractComputerParts">
         <atribute name="id" type="int" use="required"/>
+        <atribute name="name" type="string" use="otional" default="N/A"/>
         <sequence>
-            <element name="name" type="string"/>
             <element name="manufacturer" type="string"/>
         </sequence>
     </complexType>
-
+    <complexType name="Processor">
+        <complexContent>
+            <extension base="tns:AbstractComputerParts">
+                <sequence>
+                    <element name="frequencyCore" type="string"/>
+                    <element name="coresNumber" type="int"
+                             minOccurs="2"
+                             maxOccurs="12"/>
+                    <element name="processorType">
+                        <simplyTipe>
+                            <restriction base="string">
+                                <enumaration value="GPU"></enumaration>
+                                <enumaration value="CPU"></enumaration>
+                            </restriction>
+                        </simplyTipe>
+                    </element>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
     <complexType name="Board">
         <complexContent>
             <extension base="tns:AbstractComputerParts">
@@ -72,7 +128,6 @@
             </extension>
         </complexContent>
     </complexType>
-
     <complexType name="MotherBoard">
         <complexContent>
             <extension base="tns:Board">
@@ -90,7 +145,6 @@
             </extension>
         </complexContent>
     </complexType>
-
     <complexType name="VideoCard">
         <complexContent>
             <extension base="tns:Board">
@@ -101,23 +155,4 @@
             </extension>
         </complexContent>
     </complexType>
-
-    <complexType name="Processor">
-        <complexContent>
-            <extension base="tns:AbstractComputerParts">
-                <sequence>
-                    <element name="frequencyCore" type="string"/>
-                    <element name="processorType">
-                        <simplyTipe>
-                            <restriction base="string">
-                                <enumaration value="VGA"></enumaration>
-                                <enumaration value="CPU"></enumaration>
-                            </restriction>
-                        </simplyTipe>
-                    </element>
-                </sequence>
-            </extension>
-        </complexContent>
-    </complexType>
-
 </schema>
