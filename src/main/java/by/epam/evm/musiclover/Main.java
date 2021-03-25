@@ -23,6 +23,7 @@ public class Main {
         } catch (DataException e) {
             e.printStackTrace();
         }
+        hello it not exist in master branch
     }
 
     private static void run(String[] arguments) throws NotExistEnumException, DataException {
